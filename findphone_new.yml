@@ -1,0 +1,42 @@
+esphome:
+  name: findphone-new
+
+esp8266:
+  board: nodemcuv2
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: !secret findphone_apipw
+
+ota:
+  password: !secret findphone_otapw
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_pass
+  fast_connect: true
+
+  manual_ip:
+    static_ip: 192.168.4.94
+    gateway: 192.168.4.1
+    subnet: 255.255.252.0
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Findphone New Fallback Hotspot"
+    password: !secret findphone_backup_network_pw
+
+captive_portal:
+    
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: D2
+      inverted: false
+    name: "Find Mom's Phone New"
+    id: find_mom_phone_new
+    icon: "mdi:phone"
